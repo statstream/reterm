@@ -1,22 +1,29 @@
-{"level":"info","key":"1. ingress:http:03746bca1b4b4a4b922b6b851c7946de","time":"2023-08-24T12:09:04Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"2. var:4:RASP_PI_Nawagarh_Lvl","time":"2023-08-24T12:09:05Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"5. var:9:TEST_ic_kva","time":"2023-08-24T12:09:08Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"6. var:12:GPRS_ENERGY_METER_R_PHASE_AMPS","time":"2023-08-24T12:09:09Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"20. ingress:mqtt:002690192621483383ac0105b02a8a97","time":"2023-08-24T12:09:10Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"101. ws:14:device:V","time":"2023-08-24T12:09:14Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"34. var:4:RASP_PI_Mak_vih_Ban_Lvl","time":"2023-08-24T12:09:15Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"90. var:10:DEVICE_1_DEVICE_VAR","time":"2023-08-24T12:09:16Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"47. var:2:RASP_B_PH_VOLTAGE","time":"2023-08-24T12:09:18Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"9. var:4:SANVIJAY_PI_b2r_i_c_mvah","time":"2023-08-24T12:09:23Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"28. var:5:V_NAGPUR_TEMP","time":"2023-08-24T12:09:25Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"24. var:1:V_Nawagarh_Flo","time":"2023-08-24T12:09:27Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"6. var:12:GPRS_ENERGY_METER_R_PHASE_AMPS","time":"2023-08-24T12:09:41Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"7. default_dashboard_01gsc7y8pcv6ywxqa7w7tedz1e","time":"2023-08-24T12:09:42Z","caller":"/home/ketan/code/reterm/main.go:82","message":"Fetched string value from Redis"}
-{"level":"info","key":"8. ingress:http:fae4b94891bf42bd830e2e8205508ac6","time":"2023-08-24T12:09:43Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"9. var:4:SANVIJAY_PI_b2r_i_c_mvah","time":"2023-08-24T12:09:44Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"11. var:1:V_Gandhi_Ngr_Lvl","time":"2023-08-24T12:09:45Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"12. var:2_RASP_PI_B_PH_AMPS","time":"2023-08-24T12:09:46Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","key":"21. var:1:V_Kena_Ban_Lvl","time":"2023-08-24T12:09:50Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","time":"2023-08-24T12:09:54Z","caller":"/home/ketan/code/reterm/refreshdata.go:21","message":"Refreshed key list"}
-{"level":"info","key":"4. ingress:http:a22fecfa79f0477a83a49db04a61c69f","time":"2023-08-24T12:09:57Z","caller":"/home/ketan/code/reterm/main.go:108","message":"Fetched hash values from Redis"}
-{"level":"info","time":"2023-08-24T12:09:59Z","caller":"/home/ketan/code/reterm/refreshdata.go:21","message":"Refreshed key list"}
+{"level":"info","time":"2023-08-25T05:56:02Z","caller":"/home/ketan/code/reterm/refreshdata.go:21","message":"Refreshed key list"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:16:50Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:31:59Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:32:13Z","caller":"/home/ketan/code/reterm/deletekey.go:20","message":"Deleted key from Redis"}
+{"level":"info","time":"2023-08-25T06:32:13Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","time":"2023-08-25T06:32:19Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","time":"2023-08-25T06:32:25Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"var:4:RASP_PI_Nawagarh_Lvl","time":"2023-08-25T06:32:29Z","caller":"/home/ketan/code/reterm/values.go:47","message":"Fetched hash values from Redis"}
+{"level":"info","time":"2023-08-25T06:32:32Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"var:9:TEST_ic_pf","time":"2023-08-25T06:32:35Z","caller":"/home/ketan/code/reterm/values.go:47","message":"Fetched hash values from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:36:47Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","time":"2023-08-25T06:37:06Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"ingress:http:03746bca1b4b4a4b922b6b851c7946de","time":"2023-08-25T06:37:55Z","caller":"/home/ketan/code/reterm/values.go:47","message":"Fetched hash values from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:37:57Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","time":"2023-08-25T06:38:01Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"warn","key":"15. var:2:V_INCOMER_B_AMPS","time":"2023-08-25T06:38:21Z","caller":"/home/ketan/code/reterm/main.go:94","message":"Unknown value type"}
+{"level":"info","key":"ingress:http:03746bca1b4b4a4b922b6b851c7946de","time":"2023-08-25T06:38:26Z","caller":"/home/ketan/code/reterm/values.go:47","message":"Fetched hash values from Redis"}
+{"level":"info","time":"2023-08-25T06:41:13Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:41:15Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","time":"2023-08-25T06:41:21Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"ingress:http:03746bca1b4b4a4b922b6b851c7946de","time":"2023-08-25T06:41:30Z","caller":"/home/ketan/code/reterm/values.go:47","message":"Fetched hash values from Redis"}
+{"level":"info","time":"2023-08-25T06:46:05Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:46:10Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:46:16Z","caller":"/home/ketan/code/reterm/deletekey.go:18","message":"Deleted key from Redis"}
+{"level":"info","time":"2023-08-25T06:46:16Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:52:21Z","caller":"/home/ketan/code/reterm/values.go:15","message":"Fetched string value from Redis"}
+{"level":"info","key":"atharva","time":"2023-08-25T06:52:41Z","caller":"/home/ketan/code/reterm/deletekey.go:18","message":"Deleted key from Redis"}
+{"level":"info","time":"2023-08-25T06:52:41Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}
+{"level":"info","time":"2023-08-25T06:57:18Z","caller":"/home/ketan/code/reterm/refreshdata.go:20","message":"Refreshed key list"}

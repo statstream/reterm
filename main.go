@@ -23,7 +23,7 @@ var flex = tview.NewFlex()
 
 var text = tview.NewTextView().
 	SetTextColor(tcell.ColorGreen).
-	SetText("\n(q) to Quit\n(r) to Refresh")
+	SetText("\n(r) to refresh\n(d) to delete\n(q) to quit")
 
 var ctx = context.Background()
 var redisClient *redis.Client
@@ -74,46 +74,24 @@ func main() {
 			valuesTextView.SetText("Error fetching key type from Redis")
 			return
 		}
-
+		// Display the value as per valueType
 		switch valueType {
 		case "string":
-			value, err := redisClient.Get(ctx, actualKey).Result()
-			if err == nil {
-				log.Info().Str("key", mainText).Msg("Fetched string value from Redis")
-				valuesTextView.SetText(value)
-			} else if err == redis.Nil {
-				log.Info().Str("key", mainText).Msg("Key not found in Redis")
-				valuesTextView.SetText("No value available")
-			} else {
-				log.Error().Err(err).Str("key", mainText).Msg("Error fetching value from Redis")
-				valuesTextView.SetText("Error fetching value from Redis")
-			}
+			displayStringValue(actualKey)
 		case "list":
-			listValues, err := redisClient.LRange(ctx, actualKey, 0, -1).Result()
-			if err != nil {
-				log.Error().Err(err).Str("key", mainText).Msg("Error fetching list values from Redis")
-				valuesTextView.SetText("Error fetching list values from Redis")
-				return
-			}
-			log.Info().Str("key", mainText).Msg("Fetched list values from Redis")
-
-			valuesTextView.SetText(strings.Join(listValues, "\n")) // Display list values
+			displayListValues(actualKey)
 		case "hash":
-			hashValues, err := redisClient.HGetAll(ctx, actualKey).Result()
-			if err != nil {
-				log.Error().Err(err).Str("key", mainText).Msg("Error fetching hash values from Redis")
-				valuesTextView.SetText("Error fetching hash values from Redis")
-				return
-			}
-			log.Info().Str("key", mainText).Msg("Fetched hash values from Redis")
-
-			var hashValueStrings []string
-			for field, value := range hashValues {
-				hashValueStrings = append(hashValueStrings, fmt.Sprintf("%s: %s", field, value))
-			}
-			valuesTextView.SetText(strings.Join(hashValueStrings, "\n")) // Display hash values
+			displayHashValues(actualKey)
+		case "set":
+			displaySetValues(actualKey)
+		case "zset":
+			displayZSetValues(actualKey)
+		case "hyperloglog":
+			displayHyperLogLogValues(actualKey)
+		case "bitmap":
+			displayBitmapValues(actualKey)
 		default:
-			log.Warn().Str("key", mainText).Msg("Unknown value type")
+			log.Warn().Str("key", actualKey).Msg("Unknown value type")
 			valuesTextView.SetText("Unknown value type")
 		}
 	})
@@ -133,6 +111,12 @@ func main() {
 			app.Stop()
 		} else if event.Rune() == 'r' {
 			refreshData()
+		} else if event.Rune() == 'd' {
+			selectedIndex := keys.GetCurrentItem()
+			selectedText, _ := keys.GetItemText(selectedIndex)
+			selectedKey := strings.TrimSpace(strings.TrimPrefix(selectedText, fmt.Sprintf("%d.", selectedIndex+1)))
+			confirmDeleteModal(selectedIndex, selectedKey)
+
 		}
 		return event
 	})
