@@ -28,6 +28,8 @@ func confirmDeleteModal(selectedIndex int, selectedKey string) {
 			if buttonLabel == " Yes " {
 				deleteSelectedKey(selectedIndex, selectedKey)
 				refreshData()
+				keys.SetCurrentItem(selectedIndex)
+
 			}
 			app.SetFocus(keys)
 			pages.RemovePage("modal")

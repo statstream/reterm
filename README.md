@@ -1,6 +1,5 @@
 # reterm
 
-# natsconfig
 
 ## Environment Variables
 `REDIS_URL`
@@ -19,14 +18,13 @@
 `LOG_MAX_BACKUPS`
 ### Default Value: `5`
 
-## KeyInformation
+## Key
 
 - **q**: Quit the application.
 - **r**: Refresh the data to update key list and values.
 - **d**: Delete the selected key. A confirmation prompt will appear.
 - **h**: Display help information.
 - **/**: Move focus to the search bar for key search.
-
-When the search bar is active:
+## When the search bar is active:
 - **Enter**: Search for the provided key.
 - **Esc**: Clear the search bar and return focus to the key list.

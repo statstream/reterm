@@ -14,16 +14,19 @@ func searchKeys(query string) {
 		log.Error().Err(err).Msg("Error for searching keys")
 	}
 
-	filteredKeys := make([]string, 0)
+	key1 := make([]string, 0)
 
 	for _, key := range keyItems {
 		if strings.Contains(key, query) {
-			filteredKeys = append(filteredKeys, key)
+			key1 = append(key1, key)
 		}
 	}
 	keys.Clear()
-	for idx, key := range filteredKeys {
+	for idx, key := range key1 {
 		keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
 
+	}
+	if len(key1) > 0 {
+		keys.SetCurrentItem(0)
 	}
 }

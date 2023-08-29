@@ -5,6 +5,7 @@ import (
 )
 
 func hoverOverKey(key string) {
+
 	valueType, err := redisClient.Type(ctx, key).Result()
 	if err != nil {
 		valuesTextView.SetText("Error fetching key type from Redis")
