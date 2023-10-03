@@ -68,10 +68,6 @@ jobs:
         name: reterm
         path: ${{ github.workspace }}
 
-    - name: List Files
-      run: |
-        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
-
     - name: Extract Tag Name
       id: extract_tag
       run: echo ::set-output name=tag::${{ github.ref_name }}
@@ -87,6 +83,11 @@ jobs:
         draft: false
         prerelease: false
 
+    - name: List Files
+      run: |
+        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
+      shell: bash
+      
     - name: Upload Release Assets
       id: upload-release-assets
       uses: actions/upload-release-asset@v1
