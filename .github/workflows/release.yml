@@ -22,16 +22,17 @@ jobs:
     - name: Build
       run: go build -o reterm
 
-    - name: Create Tarball Archive
+    - name: Create Linux AMD64 Tarball Archive
       run: |
-        tar -czvf reterm.tar.gz reterm
+        GOARCH=amd64 GOOS=linux go build -o reterm-linux-amd64 reterm
+        tar -czvf reterm-linux-amd64.tar.gz reterm-linux-amd64
       working-directory: ${{ github.workspace }}
 
     - name: Upload Tarball Archive
       uses: actions/upload-artifact@v2
       with:
         name: reterm
-        path: ./reterm.tar.gz
+        path: ./reterm-linux-amd64.tar.gz
 
   # This job will release the version
   release:
@@ -74,6 +75,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./reterm.tar.gz
-        asset_name: traefik-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
+        asset_path: ./reterm-linux-amd64.tar.gz
+        asset_name: reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
         asset_content_type: application/gzip
