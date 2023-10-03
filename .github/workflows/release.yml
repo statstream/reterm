@@ -33,6 +33,11 @@ jobs:
         tar -czvf reterm-linux-amd64.tar.gz reterm-linux-amd64
       working-directory: ${{ github.workspace }}
 
+    - name: List Tarball Archive Paths
+      run: |
+        echo "reterm.tar.gz is located at: ${{ github.workspace }}/reterm.tar.gz"
+        echo "reterm-linux-amd64.tar.gz is located at: ${{ github.workspace }}/reterm-linux-amd64.tar.gz"
+
     - name: Upload Tarball Archives
       uses: actions/upload-artifact@v2
       with:
@@ -54,15 +59,18 @@ jobs:
       with:
         go-version: 1.18.1 
 
-    - name: Download artifact
+    - name: List Files
+      run: ls -R
+
+    - name: Download Tarball Archives
       uses: actions/download-artifact@v2
       with:
         name: reterm
-        path: ./
+        path: ${{ github.workspace }}
 
     - name: Extract Tag Name
       id: extract_tag
-      run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
+      run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\}/
 
     - name: Create GitHub Release
       id: create_release
@@ -75,13 +83,19 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload Release Assets
+      id: upload-release-assets
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: ./reterm
-        asset_name: reterm
-        asset_content_type: application/octet-stream
+        asset_path: |
+          ./reterm/reterm.tar.gz
+          ./reterm/reterm-linux-amd64.tar.gz
+        asset_name: |
+          reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
+          reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
+        asset_content_type: |
+          application/gzip
+          application/gzip
