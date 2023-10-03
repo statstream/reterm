@@ -33,6 +33,11 @@ jobs:
         tar -czvf reterm-linux-amd64.tar.gz reterm-linux-amd64
       working-directory: ${{ github.workspace }}
 
+    - name: List Tarball Archive Paths
+      run: |
+        echo "reterm.tar.gz is located at: ${{ github.workspace }}/reterm.tar.gz"
+        echo "reterm-linux-amd64.tar.gz is located at: ${{ github.workspace }}/reterm-linux-amd64.tar.gz"
+
     - name: Upload Tarball Archives
       uses: actions/upload-artifact@v2
       with:
