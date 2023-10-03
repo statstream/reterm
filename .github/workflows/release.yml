@@ -54,12 +54,6 @@ jobs:
       with:
         go-version: 1.18.1 
 
-    - name: Download Tarball Archives
-      uses: actions/download-artifact@v2
-      with:
-        name: reterm
-        path: ./
-
     - name: Extract Tag Name
       id: extract_tag
       run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
