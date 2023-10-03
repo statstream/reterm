@@ -32,8 +32,8 @@ jobs:
         GOARCH=amd64 GOOS=linux go build -o reterm-linux-amd64 reterm
         tar -czvf reterm-linux-amd64.tar.gz reterm-linux-amd64
       working-directory: ${{ github.workspace }}
-  
-    - name: Upload Tarball Archive
+
+    - name: Upload Tarball Archives
       uses: actions/upload-artifact@v2
       with:
         name: reterm
@@ -54,7 +54,7 @@ jobs:
       with:
         go-version: 1.18.1 
 
-    - name: Download Tarball Archive
+    - name: Download Tarball Archives
       uses: actions/download-artifact@v2
       with:
         name: reterm
@@ -75,20 +75,19 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Release Asset
-      id: upload-release-asset
+    - name: Upload Release Assets
+      id: upload-release-assets
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
-          ./reterm.tar.gz,
+          ./reterm.tar.gz
           ./reterm-linux-amd64.tar.gz
         asset_name: |
-          reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz,
+          reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
           reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
         asset_content_type: |
-          application/gzip,
           application/gzip
-
+          application/gzip
