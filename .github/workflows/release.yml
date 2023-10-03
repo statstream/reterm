@@ -19,6 +19,9 @@ jobs:
       with:
         go-version: 1.18.1 
 
+    - name: Debug github.workspace
+      run: echo "github.workspace is ${{ github.workspace }}"
+
     - name: Build
       run: go build -o reterm
 
@@ -37,7 +40,7 @@ jobs:
       run: |
         echo "reterm.tar.gz is located at: ${{ github.workspace }}/reterm.tar.gz"
         echo "reterm-linux-amd64.tar.gz is located at: ${{ github.workspace }}/reterm-linux-amd64.tar.gz"
-
+        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
     - name: Upload Tarball Archives
       uses: actions/upload-artifact@v2
       with:
@@ -60,7 +63,8 @@ jobs:
         go-version: 1.18.1 
 
     - name: List Files
-      run: ls -R
+      run: |
+        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
 
     - name: Download Tarball Archives
       uses: actions/download-artifact@v2
