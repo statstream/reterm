@@ -95,8 +95,8 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
-          ${{ github.workspace }}/reterm/reterm.tar.gz
-          ${{ github.workspace }}/reterm/reterm-linux-amd64.tar.gz 
+          ${{ github.workspace }}/reterm.tar.gz
+          ${{ github.workspace }}/reterm-linux-amd64.tar.gz 
         asset_name: |
           reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
           reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
