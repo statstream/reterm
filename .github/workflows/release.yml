@@ -64,6 +64,9 @@ jobs:
       id: extract_tag
       run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
 
+    - name: List Files
+      run: ls -R
+
     - name: Create GitHub Release
       id: create_release
       uses: actions/create-release@v1
