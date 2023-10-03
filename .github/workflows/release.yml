@@ -42,10 +42,11 @@ jobs:
           ./reterm-linux-amd64.tar.gz
 
   # This job will release the version
-  release:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+# This job will release the version
+release:
+  runs-on: ubuntu-latest
+  needs: build
+  steps:
     - name: Checkout code
       uses: actions/checkout@v2
 
@@ -81,7 +82,7 @@ jobs:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
         asset_path: |
           ./reterm.tar.gz
-          ./reterm-linux-amd64.tar.gz
+          ./reterm-linux-amd64/reterm-linux-amd64.tar.gz
         asset_name: |
           reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
           reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
