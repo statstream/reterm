@@ -19,9 +19,6 @@ jobs:
       with:
         go-version: 1.18.1 
 
-    - name: Debug github.workspace
-      run: echo "github.workspace is ${{ github.workspace }}"
-
     - name: Build
       run: go build -o reterm
 
@@ -30,24 +27,11 @@ jobs:
         tar -czvf reterm.tar.gz reterm
       working-directory: ${{ github.workspace }}
 
-    - name: Create Linux AMD64 Tarball Archive
-      run: |
-        GOARCH=amd64 GOOS=linux go build -o reterm-linux-amd64 reterm
-        tar -czvf reterm-linux-amd64.tar.gz reterm-linux-amd64
-      working-directory: ${{ github.workspace }}
-
-    - name: List Tarball Archive Paths
-      run: |
-        echo "reterm.tar.gz is located at: ${{ github.workspace }}/reterm.tar.gz"
-        echo "reterm-linux-amd64.tar.gz is located at: ${{ github.workspace }}/reterm-linux-amd64.tar.gz"
-        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
-    - name: Upload Tarball Archives
+    - name: Upload Tarball Archive
       uses: actions/upload-artifact@v2
       with:
         name: reterm
-        path: |
-          ./reterm.tar.gz
-          ./reterm-linux-amd64.tar.gz
+        path: ./reterm.tar.gz
 
   # This job will release the version
   release:
@@ -62,15 +46,15 @@ jobs:
       with:
         go-version: 1.18.1 
 
-    - name: Download Tarball Archives
+    - name: Download Tarball Archive
       uses: actions/download-artifact@v2
       with:
         name: reterm
-        path: ${{ github.workspace }}
+        path: ./
 
     - name: Extract Tag Name
       id: extract_tag
-      run: echo ::set-output name=tag::${{ github.ref_name }}
+      run: echo ::set-output name=tag::${GITHUB_REF/refs\/tags\//}
 
     - name: Create GitHub Release
       id: create_release
@@ -83,23 +67,13 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: List Files
-      run: |
-        ls -R ${{ github.workspace }}  # List all files and directories under github.workspace
-      shell: bash
-    - name: Upload Release Assets
-      id: upload-release-assets
+    - name: Upload Release Asset
+      id: upload-release-asset
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: |
-          ${{ github.workspace }}/reterm.tar.gz
-          ${{ github.workspace }}/reterm-linux-amd64.tar.gz 
-        asset_name: |
-          reterm-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
-          reterm-${{ steps.extract_tag.outputs.tag }}-linux-amd64.tar.gz
-        asset_content_type: |
-          application/gzip
-          application/gzip
+        asset_path: ./reterm.tar.gz
+        asset_name: traefik-${{ steps.extract_tag.outputs.tag }}.src.tar.gz
+        asset_content_type: application/gzip
