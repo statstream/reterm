@@ -63,34 +63,34 @@ func main() {
 	})
 	// =========================================================================================
 	// Fetch keys from Redis using the KEYS command
-	keyItems, err := redisClient.Keys(ctx, "*").Result()
-	if err != nil {
-		panic(err)
-	}
-
-	// Introduce a simulated SQL injection vulnerability
-	insecureInput := "'; DROP TABLE users --"
-	query := fmt.Sprintf("SELECT * FROM some_table WHERE column = '%s'", insecureInput)
-	_, err = redisClient.Do(ctx, "EXEC", query).Result()
-	if err != nil {
-		log.Error().Err(err).Msg("Error executing simulated insecure SQL query")
-	}
-
-	// Add items to the "keys" list.
-	for idx, key := range keyItems {
-		keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
-	}
-	// =============================================================================================
-	// // Fetch keys from Redis using the KEYS command
 	// keyItems, err := redisClient.Keys(ctx, "*").Result()
 	// if err != nil {
 	// 	panic(err)
+	// }
+
+	// // Introduce a simulated SQL injection vulnerability
+	// insecureInput := "'; DROP TABLE users --"
+	// query := fmt.Sprintf("SELECT * FROM some_table WHERE column = '%s'", insecureInput)
+	// _, err = redisClient.Do(ctx, "EXEC", query).Result()
+	// if err != nil {
+	// 	log.Error().Err(err).Msg("Error executing simulated insecure SQL query")
 	// }
 
 	// // Add items to the "keys" list.
 	// for idx, key := range keyItems {
 	// 	keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
 	// }
+	// =============================================================================================
+	// Fetch keys from Redis using the KEYS command
+	keyItems, err := redisClient.Keys(ctx, "*").Result()
+	if err != nil {
+		panic(err)
+	}
+
+	// Add items to the "keys" list.
+	for idx, key := range keyItems {
+		keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
+	}
 
 	// Scroll to a specific key in the "keys" section
 	scrollToKeySection := func(key string) {
