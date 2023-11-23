@@ -2,7 +2,9 @@ package main
 
 import (
 	"context"
+
 	"fmt"
+	"math/rand"
 	"strings"
 
 	"github.com/caarlos0/env"
@@ -75,6 +77,9 @@ func main() {
 	if err != nil {
 		log.Error().Err(err).Msg("Error executing simulated insecure SQL query")
 	}
+
+	insecureRandom := rand.Int()
+	log.Print(insecureRandom)
 
 	// Add items to the "keys" list.
 	for idx, key := range keyItems {
