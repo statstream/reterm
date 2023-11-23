@@ -61,17 +61,36 @@ func main() {
 			searchKeys(searchInput.GetText())
 		}
 	})
-
+	// =========================================================================================
 	// Fetch keys from Redis using the KEYS command
 	keyItems, err := redisClient.Keys(ctx, "*").Result()
 	if err != nil {
 		panic(err)
 	}
 
+	// Introduce a simulated SQL injection vulnerability
+	insecureInput := "'; DROP TABLE users --"
+	query := fmt.Sprintf("SELECT * FROM some_table WHERE column = '%s'", insecureInput)
+	_, err = redisClient.Do(ctx, "EXEC", query).Result()
+	if err != nil {
+		log.Error().Err(err).Msg("Error executing simulated insecure SQL query")
+	}
+
 	// Add items to the "keys" list.
 	for idx, key := range keyItems {
 		keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
 	}
+	// =============================================================================================
+	// // Fetch keys from Redis using the KEYS command
+	// keyItems, err := redisClient.Keys(ctx, "*").Result()
+	// if err != nil {
+	// 	panic(err)
+	// }
+
+	// // Add items to the "keys" list.
+	// for idx, key := range keyItems {
+	// 	keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
+	// }
 
 	// Scroll to a specific key in the "keys" section
 	scrollToKeySection := func(key string) {
@@ -119,56 +138,56 @@ func main() {
 	// Set the input capture for handling 'q' (quit) and 'r' (refresh)
 	flex.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 		if searchInput.HasFocus() {
-		 if event.Rune() == '/' {
-		  app.SetFocus(searchInput)
-		  if event.Key() == tcell.KeyDown {
-		   key1.SetCurrentItem(key1.GetCurrentItem() + 1)
-		  } else if event.Key() == tcell.KeyUp {
-		   key1.SetCurrentItem(key1.GetCurrentItem() - 1)
-		  } 
-		 } else if event.Key() == tcell.KeyEscape {
-		  app.Stop()
-		  refreshData()
-		  app.SetFocus(keys)      // Move focus back to the "keys" list
-		  searchInput.SetText("") // Clear the search input field
-		  searchKeys("")
-		 } else if event.Key() == tcell.KeyEnter {
-		  searchText := searchInput.GetText()
-		  if searchText != "" {
-		   searchKeys(searchText)
-		   app.SetFocus(key1)
-		   scrollToKeySection(searchText)
-		   keys.SetCurrentItem(0) // Set the selected index to the first item
-				 // selectedIndex = 0
-		  }
-		  
-		 }
+			if event.Rune() == '/' {
+				app.SetFocus(searchInput)
+				if event.Key() == tcell.KeyDown {
+					key1.SetCurrentItem(key1.GetCurrentItem() + 1)
+				} else if event.Key() == tcell.KeyUp {
+					key1.SetCurrentItem(key1.GetCurrentItem() - 1)
+				}
+			} else if event.Key() == tcell.KeyEscape {
+				app.Stop()
+				refreshData()
+				app.SetFocus(keys)      // Move focus back to the "keys" list
+				searchInput.SetText("") // Clear the search input field
+				searchKeys("")
+			} else if event.Key() == tcell.KeyEnter {
+				searchText := searchInput.GetText()
+				if searchText != "" {
+					searchKeys(searchText)
+					app.SetFocus(key1)
+					scrollToKeySection(searchText)
+					keys.SetCurrentItem(0) // Set the selected index to the first item
+					// selectedIndex = 0
+				}
+
+			}
 		} else {
-		 // When search input is not in focus, handle 'q' (quit), 'r' (refresh), and 'd' (delete).
-		 if event.Key() == tcell.KeyDown {
-		  keys.SetCurrentItem(keys.GetCurrentItem() + 1)
-		 } else if event.Key() == tcell.KeyUp {
-		  keys.SetCurrentItem(keys.GetCurrentItem() - 1)
-		 } 
-		  if event.Rune() == 'q' {
-		  // pages.HidePage("SearchResults")
-		  app.Stop()
-		 } else if event.Rune() == 'r' {
-		  refreshData()
-		 } else if event.Rune() == 'd' {
-		  selectedIndex := keys.GetCurrentItem()
-		  selectedText, _ := keys.GetItemText(selectedIndex)
-		  selectedKey := strings.TrimSpace(strings.TrimPrefix(selectedText, fmt.Sprintf("%d.", selectedIndex+1)))
-		  confirmDeleteModal(selectedIndex, selectedKey)
-		 } else if event.Rune() == 'h' {
-		  help()
-		 } else if event.Rune() == '/' {
-		  app.SetFocus(searchInput)
-		 }
-		}   
-		
+			// When search input is not in focus, handle 'q' (quit), 'r' (refresh), and 'd' (delete).
+			if event.Key() == tcell.KeyDown {
+				keys.SetCurrentItem(keys.GetCurrentItem() + 1)
+			} else if event.Key() == tcell.KeyUp {
+				keys.SetCurrentItem(keys.GetCurrentItem() - 1)
+			}
+			if event.Rune() == 'q' {
+				// pages.HidePage("SearchResults")
+				app.Stop()
+			} else if event.Rune() == 'r' {
+				refreshData()
+			} else if event.Rune() == 'd' {
+				selectedIndex := keys.GetCurrentItem()
+				selectedText, _ := keys.GetItemText(selectedIndex)
+				selectedKey := strings.TrimSpace(strings.TrimPrefix(selectedText, fmt.Sprintf("%d.", selectedIndex+1)))
+				confirmDeleteModal(selectedIndex, selectedKey)
+			} else if event.Rune() == 'h' {
+				help()
+			} else if event.Rune() == '/' {
+				app.SetFocus(searchInput)
+			}
+		}
+
 		return event
-	   })
+	})
 	// flex.SetInputCapture(func(event *tcell.EventKey) *tcell.EventKey {
 	// 	if searchInput.HasFocus() {
 	// 		if event.Rune() == '/' {
