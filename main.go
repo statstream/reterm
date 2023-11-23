@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"math/rand"
 
 	"fmt"
 	"strings"
@@ -73,7 +74,10 @@ func main() {
 	for idx, key := range keyItems {
 		keys.AddItem(fmt.Sprintf("%d. %s", idx+1, key), "", 0, nil)
 	}
-
+	// ========================================
+	randNum := rand.Int()
+	fmt.Print(randNum)
+	// =========================================
 	// Scroll to a specific key in the "keys" section
 	scrollToKeySection := func(key string) {
 		for idx, keyItem := range keyItems {
